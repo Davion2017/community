@@ -10,8 +10,16 @@ main{
     width: 80px;
 }
 
+.media img{
+    width: 60px;
+}
+
 .text-desc{
     font-size: 12px;
     font-weight: normal;
     color: #666;
+}
+
+.demo-menu{
+    color: #999;
 }
