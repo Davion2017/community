@@ -1,0 +1,17 @@
+body{
+    background-color: #efefef;
+}
+
+main{
+    background-color: #ffffff;
+}
+
+.media-left a img{
+    width: 80px;
+}
+
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #666;
+}

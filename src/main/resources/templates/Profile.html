@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/zico/css/zico.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <script src="/jquery/jquery.js"></script>
+    <script src="/popper/umd/popper.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="/css/demo.css">
+
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+<main class="container">
+    <div class="container-fluid p-5">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2><span th:text="${sectionName}"></span></h2>
+                <hr>
+                <div class="media my-3" th:each="question : ${pagination.questions}">
+                    <div class="media-left mr-3">
+                        <a href="#">
+                            <img th:src="${question.user.getAvatarUrl()}" alt="头像" class="img-thumbnail">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                        <span th:text="${question.getDescription()}"></span> <br>
+                        <span class="text-desc"><span th:text="${question.getCommentCount()}"></span>回复 · <span
+                                th:text="${question.getLikeCount()}"></span>点赞 · <span
+                                th:text="${question.getViewCount()}"></span>浏览 · <span
+                                th:text="${#dates.format(question.getGmtCreate(), 'yyyy-MM-dd HH:mm')}"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="list-group">
+                    <a href="/profile/questions" class="list-group-item list-group-item-action"
+                       th:classappend="${section == 'questions'} ? 'active' : ''">
+                        我的提问
+                        <span class="badge badge-danger badge-pill float-right">2</span>
+                    </a>
+                    <a href="/profile/replies" class="list-group-item list-group-item-action"
+                       th:classappend="${section == 'replies'} ? 'active' : ''">
+                        最新回复
+                        <span class="badge badge-danger badge-pill float-right">14</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
