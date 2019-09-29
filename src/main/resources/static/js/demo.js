@@ -1,3 +1,6 @@
+/**
+ * 提交回复
+ */
 function post() {
     var questionId = $("#question-id").val();
     var content = $("#comment_content").val();
@@ -32,4 +35,20 @@ function post() {
         },
         dataType: "json"
     })
+}
+
+/**
+ * 展开二级评论
+ */
+function collappseComments(e) {
+    var id = e.getAttribute("data-id");
+    var comments = $("#comment-" + id);
+    var myself = $(e);
+    if (comments.hasClass("show")){
+        comments.removeClass("show");
+        myself.removeClass("show-comment");
+    } else{
+        comments.addClass("show");
+        myself.addClass("show-comment");
+    }
 }

@@ -37,3 +37,13 @@ main{
 .comment-info i:hover{
     color: #499ef3;
 }
+
+.operate{
+    display: inline-block;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.show-comment{
+    color: #499ef3;
+}
