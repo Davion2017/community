@@ -19,6 +19,7 @@
     <div class="container-fluid p-5">
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <!--正文-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h4><span th:text="${question.title}"></span></h4>
                     <span class="demo-menu">
@@ -29,15 +30,35 @@
                     <hr>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                     <hr>
-                    <span>
-                    <a th:href="@{'/publish/' + ${question.id}}" class="demo-menu">
+                    <span th:if="${session.user != null}">
+                        <a th:href="@{'/publish/' + ${question.id}}" class="demo-menu">
                         <i class="zi zi_pencilalt" zico="笔黑"></i>
-                        编辑
-                    </a>
-                </span>
+                            编辑
+                        </a>
+                    </span>
                 </div>
-
                 <hr>
+                <!--回复-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 my-2">
+                    <h4 class="mt-4 mb-0">
+                        <span th:text="${question.commentCount}"></span> 个回复
+                    </h4>
+                    <hr class="m-2">
+                    <div class="media my-3 comment-info" th:each="comment : ${comments}">
+                        <img class="mr-3 img-thumbnail" th:src="${comment.user.avatarUrl}"
+                             alt="Generic placeholder image">
+                        <div class="media-body py-3">
+                            <h5 class="mt-0" th:text="${comment.user.name}"></h5>
+                            <div th:text="${comment.content}"></div>
+                            <div class="text-secondary">
+                                <i class="zi zi_thumbsup" zico="拇指向上"></i>
+                                <i class="zi zi_commentalt mx-2" zico="评论列表"></i>
+                                <span class="float-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--回复框-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment-section">
                     <div class="media">
                         <img class="mr-3 img-thumbnail" th:src="${question.user.avatarUrl}"

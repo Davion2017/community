@@ -25,3 +25,15 @@ main{
     font-weight: normal;
     color: #999;
 }
+
+.comment-info{
+    border-bottom: 1px dotted #999;
+}
+
+.comment-info i{
+    cursor: pointer;
+}
+
+.comment-info i:hover{
+    color: #499ef3;
+}
