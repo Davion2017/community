@@ -10,6 +10,15 @@
     <script src="bootstrap/js/bootstrap.js"></script>
 
     <link rel="stylesheet" href="css/demo.css">
+    <script>
+        window.onload = function () {
+            var closable = window.localStorage.getItem("closable");
+            if(closable === "true"){
+                window.close();
+                window.localStorage.removeItem("closable");
+            }
+        }
+    </script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
