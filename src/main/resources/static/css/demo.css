@@ -38,6 +38,11 @@ main{
     color: #499ef3;
 }
 
+.sub-comments{
+    border: 2px #eee solid;
+    border-radius: 5px;
+}
+
 .operate{
     display: inline-block;
     background-color: #f5f5f5;
