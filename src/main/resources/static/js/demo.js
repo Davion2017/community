@@ -58,16 +58,46 @@ function collapseComments(e) {
         comments.removeClass("show");
         myself.removeClass("show-comment");
     } else{
-        $.getJSON("/comment/" + id, function (data) {
-            let commentBody = $("#comment-body-" + id);
-            let items = [];
-            $.each(data.data, function (key, val) {
-
-            });
-
+        let subCommentContainer = $("#comment-" + id);
+        if (subCommentContainer.children().length !== 2) {
             // 展开二级评论
             comments.addClass("show");
             myself.addClass("show-comment");
-        });
+        } else {
+            $.getJSON("/comment/" + id, function (data) {
+                let items = [];
+                $.each(data.data, function (index, comment) {
+                    let commentElement = $("<div/>", {
+                        class: "media my-3 comment-info"
+                    });
+                    let imgElement = $("<img/>", {
+                        class: "mr-3 img-thumbnail",
+                        src: comment.user.avatarUrl,
+                        alt: "头像"
+                    });
+                    let mediaBodyElement = $("<div/>", {
+                        class: "media-body py-3",
+                    });
+                    let nameElement = $("<h5/>", {
+                        class: "mt-0",
+                        html: comment.user.name
+                    });
+                    let contentElement = $("<div/>", {
+                        html: comment.content + "<br/>"
+                    });
+                    let dateElement = $("<span/>", {
+                        class: "float-right",
+                        html: moment(comment.gmtCreate).format('YYYY-MM-DD')
+                    });
+                    mediaBodyElement.append(nameElement).append(contentElement).append(dateElement);
+                    commentElement.append(imgElement).append(mediaBodyElement);
+                    items.push(commentElement);
+                });
+                subCommentContainer.prepend(items);
+                // 展开二级评论
+                comments.addClass("show");
+                myself.addClass("show-comment");
+            });
+        }
     }
 }
