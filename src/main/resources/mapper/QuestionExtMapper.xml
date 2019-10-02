@@ -29,4 +29,7 @@
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectRelated" parameterType="com.example.demo.model.QuestionExample" resultMap="BaseResultMap">
+    select * from QUESTION where id != #{id} and tag regexp #{tag}
+  </select>
 </mapper>
