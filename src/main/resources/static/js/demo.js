@@ -57,12 +57,14 @@ function collapseComments(e) {
     if (comments.hasClass("show")){
         comments.removeClass("show");
         myself.removeClass("show-comment");
+        // myself.parent().removeClass("show-comment");
     } else{
         let subCommentContainer = $("#comment-" + id);
         if (subCommentContainer.children().length !== 2) {
             // 展开二级评论
             comments.addClass("show");
             myself.addClass("show-comment");
+            // myself.parent().addClass("show-comment");
         } else {
             $.getJSON("/comment/" + id, function (data) {
                 let items = [];
@@ -97,6 +99,7 @@ function collapseComments(e) {
                 // 展开二级评论
                 comments.addClass("show");
                 myself.addClass("show-comment");
+                // myself.parent().addClass("show-comment");
             });
         }
     }

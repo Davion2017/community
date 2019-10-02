@@ -59,11 +59,17 @@
                         <div class="media-body py-3" th:id="${'comment-body-' + comment.id}">
                             <h5 class="mt-0" th:text="${comment.user.name}"></h5>
                             <div th:text="${comment.content}"></div>
-                            <div class="text-secondary">
-                                <div>
-                                    <i class="zi zi_thumbsup mr-2" zico="拇指向上"> <span
-                                            th:text="${comment.likeCount}"></span></i>
-                                    <i class="zi zi_commentalt ml-2" zico="评论列表" th:data-id="${comment.id}" onclick="collapseComments(this)"> <span th:text="${comment.commentCount}"></span></i>
+                            <div class="text-secondary my-btns mt-1">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="zi zi_thumbsup" zico="拇指向上"> <span
+                                                th:text="${comment.likeCount}"></span></i>
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" th:data-id="${comment.id}"
+                                            onclick="collapseComments(this)">
+                                        <i class="zi zi_commentalt" zico="评论列表"> <span
+                                                th:text="${comment.commentCount}"></span></i>
+                                    </button>
                                 </div>
                                 <span class="float-right"
                                       th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>

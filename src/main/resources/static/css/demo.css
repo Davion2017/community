@@ -1,9 +1,10 @@
 body {
-    background-color: #efefef;
+    background: url("/img/bg3.jpg");
 }
 
 main {
     background-color: #ffffff;
+    margin-bottom: 60px;
 }
 
 .media-left a img {
@@ -34,10 +35,6 @@ main {
     cursor: pointer;
 }
 
-.comment-info i:hover {
-    color: #499ef3;
-}
-
 .sub-comments {
     border: 2px #eee solid;
     border-radius: 5px;
@@ -50,7 +47,13 @@ main {
 }
 
 .show-comment {
-    color: #499ef3;
+    background: #499ef3;
+    color: #fff;
+}
+
+.my-btns button:hover {
+    background: #499ef3;
+    color: #fff;
 }
 
 .question-rated {
