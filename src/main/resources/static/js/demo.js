@@ -104,3 +104,21 @@ function collapseComments(e) {
         }
     }
 }
+
+function selectTag(e) {
+    // debugger;
+    let value = $(e).text().trim();
+    let tags = $("#tag");
+    let previous = tags.val();
+    if (previous.indexOf(value) === -1) {
+        if (previous) {
+            tags.val(previous + ',' + value);
+        } else {
+            tags.val(value);
+        }
+    }
+}
+
+function showTags() {
+    $('#select-tags').show();
+}
