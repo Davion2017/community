@@ -37,20 +37,14 @@
                                name="tag" autocomplete="off" placeholder='输入标签，以","分隔'>
                         <div class="mt-2 display-none" id="select-tags">
                             <ul class="nav nav-tabs">
-                                <li class="nav-item" th:each="category : ${tags}">
+                                <li class="nav-item" th:each="category, categoryStat : ${tags}">
                                     <a th:href="@{'#' + ${category.getCategoryName()}}" class="nav-link"
-                                       data-toggle="tab"><span th:text="${category.getCategoryName()}"></span></a>
+                                       data-toggle="tab"  th:classappend="${categoryStat.first ? 'active' : ''}"><span th:text="${category.getCategoryName()}"></span></a>
                                 </li>
                             </ul>
                             <div class="tab-content py-3">
-                                <!--
-                                <div id="language" class="tab-pane active">
-                                    <span class="badge badge-info" onclick="selectTag(this)"><i class="zi zi_tag"
-                                                                                                zico="标签黑"></i>Java</span>
-                                </div>
-                                -->
                                 <div th:id="${category.getCategoryName()}" class="tab-pane"
-                                     th:each="category : ${tags}">
+                                     th:each="category, categoryStat : ${tags}"  th:classappend="${categoryStat.first ? 'active' : ''}">
                                     <span class="badge badge-info m-1 p-1" onclick="selectTag(this)"
                                           th:each="myTag : ${category.getTags()}">
                                         <i class="zi zi_tag" zico="标签黑"></i>

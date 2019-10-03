@@ -110,12 +110,19 @@ function selectTag(e) {
     let value = $(e).text().trim();
     let tags = $("#tag");
     let previous = tags.val();
-    if (previous.indexOf(value) === -1) {
+    let index = previous.indexOf(value);
+    if (index === -1) {
         if (previous) {
             tags.val(previous + ',' + value);
         } else {
             tags.val(value);
         }
+    } else if (index === 0){
+        let temp = previous.replace(value + ',', '').replace(value, '');
+        tags.val(temp);
+    } else {
+        let temp = previous.replace(',' + value, '');
+        tags.val(temp);
     }
 }
 
