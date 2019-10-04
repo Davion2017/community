@@ -34,8 +34,6 @@ public class ProfileController {
         if (user == null){
             return "redirect:/";
         }
-        Long unreadCount = notificationService.unreadCount(user.getId());
-        model.addAttribute("unreadCount", unreadCount);
 
         if ("questions".equals(action)) {
             model.addAttribute("section", "questions");

@@ -35,7 +35,7 @@
                     </li>
                     <li class="nav-item" th:if="${session.user != null}">
                         <a href="/profile/replies" class="nav-link">通知
-                            <span class="badge badge-danger badge-pill float-right ml-1">14</span>
+                            <span class="badge badge-danger badge-pill float-right ml-1" th:if="${session.unreadCount != 0}" th:text="${session.unreadCount}"></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown" th:if="${session.user != null}">
