@@ -8,6 +8,8 @@
     <script src="/jquery/jquery.js"></script>
     <script src="/popper/umd/popper.js"></script>
     <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/editormd/css/editormd.css">
+    <script src="/editormd/editormd.min.js"></script>
 
     <link rel="stylesheet" href="/css/demo.css">
     <script src="/js/demo.js"></script>
@@ -25,11 +27,16 @@
                     <input type="hidden" name="id" th:value="${id}">
                     <div class="form-group">
                         <label for="title">问题标题（简单扼要）：</label>
-                        <input th:value="${title}" type="text" autocomplete="off" class="form-control" id="title" name="title" placeholder="问题标题……">
+                        <input th:value="${title}" type="text" autocomplete="off" class="form-control" id="title"
+                               name="title" placeholder="问题标题……">
                     </div>
                     <div class="form-group">
                         <label for="description">问题补充（必填，请参照右侧提示）：</label>
-                        <textarea th:text="${description}" name="description" id="description" autocomplete="off" class="form-control" cols="30" rows="10"></textarea>
+                        <!--                        <textarea th:text="${description}" name="description" id="description" autocomplete="off" class="form-control" cols="30" rows="10"></textarea>-->
+                        <div id="editor">
+                            <textarea style="display: none" th:text="${description}" name="description" id="description">
+                            </textarea>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="tag">添加标签</label>
@@ -39,12 +46,14 @@
                             <ul class="nav nav-tabs">
                                 <li class="nav-item" th:each="category, categoryStat : ${tags}">
                                     <a th:href="@{'#' + ${category.getCategoryName()}}" class="nav-link"
-                                       data-toggle="tab"  th:classappend="${categoryStat.first ? 'active' : ''}"><span th:text="${category.getCategoryName()}"></span></a>
+                                       data-toggle="tab" th:classappend="${categoryStat.first ? 'active' : ''}"><span
+                                            th:text="${category.getCategoryName()}"></span></a>
                                 </li>
                             </ul>
                             <div class="tab-content py-3">
                                 <div th:id="${category.getCategoryName()}" class="tab-pane"
-                                     th:each="category, categoryStat : ${tags}"  th:classappend="${categoryStat.first ? 'active' : ''}">
+                                     th:each="category, categoryStat : ${tags}"
+                                     th:classappend="${categoryStat.first ? 'active' : ''}">
                                     <span class="badge badge-info m-1 p-1" onclick="selectTag(this)"
                                           th:each="myTag : ${category.getTags()}">
                                         <i class="zi zi_tag" zico="标签黑"></i>
@@ -70,5 +79,17 @@
         </div>
     </div>
 </main>
+<script>
+    $(function () {
+        let editor = editormd("editor", {
+            width  : "100%",
+            height : "500px",
+            path: "/editormd/lib/",
+            delay: 0,
+            watch: false,
+            placeholder: "请输入问题描述"
+        });
+    })
+</script>
 </body>
 </html>
