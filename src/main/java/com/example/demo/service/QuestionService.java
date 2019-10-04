@@ -43,7 +43,7 @@ public class QuestionService {
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -51,7 +51,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
         paginationDTO.setPagination(totalCount, page, size);
         return paginationDTO;
@@ -65,7 +65,7 @@ public class QuestionService {
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -73,7 +73,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(userId);

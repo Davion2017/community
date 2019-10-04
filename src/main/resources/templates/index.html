@@ -28,7 +28,7 @@
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <h2><i class="zi zi_list"></i></span>  发现</h2>
                 <hr>
-                <div class="media my-3" th:each="question : ${pagination.questions}">
+                <div class="media my-3" th:each="question : ${pagination.data}">
                     <div class="media-left mr-3">
                         <a href="#">
                             <img th:src="${question.user.getAvatarUrl()}" alt="头像" class="img-thumbnail">

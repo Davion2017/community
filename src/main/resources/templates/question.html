@@ -39,7 +39,7 @@
                     </span>
                     <hr>
                     <!--编辑-->
-                    <span th:if="${session.user != null}">
+                    <span th:if="${session.user != null && session.user.getId() == question.getCreator()}">
                         <a th:href="@{'/publish/' + ${question.id}}" class="demo-menu">
                         <i class="zi zi_pencilalt" zico="笔黑"></i>
                             编辑
@@ -95,10 +95,10 @@
                 <hr>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment-section">
                     <div class="media">
-                        <img class="mr-3 img-thumbnail" th:src="${question.user.avatarUrl}"
+                        <img class="mr-3 img-thumbnail" th:src="${session.user.avatarUrl}"
                              alt="Generic placeholder image">
                         <div class="media-body py-3">
-                            <h5 class="mt-0" th:text="${question.user.name}"></h5>
+                            <h5 class="mt-0" th:text="${session.user.name}"></h5>
                         </div>
                     </div>
                     <input type="hidden" id="question-id" th:value="${question.id}">
