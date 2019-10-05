@@ -32,4 +32,21 @@
   <select id="selectRelated" parameterType="com.example.demo.model.QuestionExample" resultMap="BaseResultMap">
     select * from QUESTION where id != #{id} and tag regexp #{tag}
   </select>
+  <select id="countBySearch" parameterType="com.example.demo.dto.QuestionQueryDTO" resultType="java.lang.Integer">
+    select count(*) from QUESTION
+    <where>
+      <if test="search != null">
+        title regexp #{search}
+      </if>
+    </where>
+  </select>
+  <select id="selectBySearch" parameterType="com.example.demo.dto.QuestionQueryDTO" resultMap="BaseResultMap">
+    select * from QUESTION
+    <where>
+      <if test="search != null">
+        title regexp #{search}
+      </if>
+    </where>
+    order by gmt_create desc limit #{page},#{size}
+  </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
+import com.example.demo.dto.QuestionQueryDTO;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.exception.CustomizeException;
 import com.example.demo.mapper.QuestionExtMapper;
@@ -33,26 +34,39 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search, Integer page, Integer size) {
+
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
 
         Integer offset = size * (page - 1);
 
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
+        // 获取总数
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+//        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+        // 获取所有问题列表
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
-
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
+//        questionQueryDTO.setSize(size);
+//        questionQueryDTO.setPage(page);
+//        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
+//            String description = questionDTO.getDescription().length() > 50 ? questionDTO.getDescription().substring(0, 50) : questionDTO.getDescription();
+//            questionDTO.setDescription(description);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setData(questionDTOList);
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
         paginationDTO.setPagination(totalCount, page, size);
         return paginationDTO;
     }
